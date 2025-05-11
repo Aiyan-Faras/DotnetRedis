@@ -18,60 +18,76 @@ namespace WebApplication1.Controllers
        
 
         [HttpGet(Name = "GetAllProduct")]
-        public IEnumerable<Product> GetAllProduct()
+        public async Task<IEnumerable<Product>> GetAllProduct( CancellationToken token)
         {
             try
             {
                 _logger.LogInformation("Get product is getting called");
-                return _productService.GetAllProduct();
+                return await _productService.GetAllProduct(token);
             }
             catch (Exception ex)
             {
-                throw new Exception("kuch toh hua Controller mein");
+                throw new Exception("kuch toh hua Controller mein "+ ex.Message);
             }
         }
 
-        [HttpGet("{id:int}")]
-        public Product GetProductById(int id)
-        {
-            try
-            {
-                _logger.LogInformation("Get product is getting called");
-                return _productService.GetProductById(id);
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("kuch toh hua Controller mein");
-            }
-        }
+        
 
         [HttpGet("byname/")]
-        public Product GetProductByName(string Name)
+        public async Task<Product> GetProductByName(string Name, CancellationToken token)
         {
             try
             {
                 _logger.LogInformation("Get product is getting called");
-                return _productService.GetProductByName(Name);
+                return await _productService.GetProductByName(Name, token);
             }
             catch (Exception ex)
             {
-                throw new Exception("kuch toh hua Controller mein");
+                throw new Exception("kuch toh hua Controller mein " + ex.Message);
             }
         }
 
 
         [HttpPost(Name = "Insert")]
-        public bool Insert(Product product)
+        public async Task<bool> Insert(Product product, CancellationToken token)
         {
             try
             {
                 _logger.LogInformation("Get product is getting called");
-                return _productService.Insert(product);
+                return await _productService.Insert(product, token);
             }
             catch (Exception ex)
             {
-                throw new Exception("kuch toh hua Controller mein");
+                throw new Exception("kuch toh hua Controller mein " + ex.Message);
             }
         }
+        [HttpPut]
+        public async Task<bool> Update(Product product, CancellationToken token)
+        {
+            try
+            {
+                _logger.LogInformation("Get product is getting called");
+                return await _productService.UpdateProductAsync(product, token);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("kuch toh hua Controller mein " + ex.Message);
+            }
+        }
+
+        [HttpDelete]
+        public async Task<bool> Delete(string name, CancellationToken token)
+        {
+            try
+            {
+                _logger.LogInformation("Get product is getting called");
+                return await _productService.RemoveProductAsync(name, token);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("kuch toh hua Controller mein " + ex.Message);
+            }
+        }
+
     }
 }

@@ -22,11 +22,16 @@ namespace WebApplication1.Repository
 
     };
 
-        public List<Product> FindAll() => _products;
-
-        public Product FindById(int id) => _products.FirstOrDefault(p => p.ProductId == id);
-
-        public Product FindByName(string name) => _products.FirstOrDefault(p => p.Name == name);
+        public IEnumerable<Product> FindAll() => _products;
+        public Product FindByName(string name) => _products.FirstOrDefault(p => p.Name == name) ?? default!;
+        public bool Remove(string name)
+        {
+            var itemToRemove = _products.SingleOrDefault(r => r.Name == name);
+            var res = false;
+            if (itemToRemove != null)
+                res = _products.Remove(itemToRemove);
+            return res;
+        }
 
         public bool Save(Product product)
         {

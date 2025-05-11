@@ -1,5 +1,6 @@
 using Microsoft.Extensions.Caching.Hybrid;
 using WebApplication1.BusinessLayer;
+using WebApplication1.CacheService;
 using WebApplication1.Repository;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -27,7 +28,7 @@ builder.Services.AddHybridCache(options =>
     };
 });
 
-//builder.Services.AddScoped<ProductCacheService>();
+builder.Services.AddScoped<ProductCacheService>();
 builder.Services.AddScoped<ProductService>();
 builder.Services.AddScoped<ProductRepository>();
 
