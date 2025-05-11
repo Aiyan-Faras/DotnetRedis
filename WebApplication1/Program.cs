@@ -1,6 +1,7 @@
 using Microsoft.Extensions.Caching.Hybrid;
 using WebApplication1.BusinessLayer;
 using WebApplication1.CacheService;
+using WebApplication1.MiddleWare;
 using WebApplication1.Repository;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -41,6 +42,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+app.UseMiddleware<RequestTimingMiddleware>();
 
 app.UseHttpsRedirection();
 
